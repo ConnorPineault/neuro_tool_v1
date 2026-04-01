@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neuroaffirming Intake Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-lockup" aria-label="CAMH">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </div>
+          <div class="brand-copy">
+            <div class="brand-wordmark">CAMH</div>
+            <div class="brand-subtitle">Pre-Assessment</div>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button id="pause-toggle" class="ghost-button" type="button">
+            Pause
+          </button>
+          <button id="prefs-toggle" class="ghost-button" type="button" aria-expanded="false">
+            Preferences
+          </button>
+        </div>
+      </header>
+
+      <main class="stage">
+        <section class="stage-card">
+          <div id="screen-container"></div>
+        </section>
+      </main>
+
+      <footer class="footer-bar">
+        <div id="progress-block" class="progress-block hidden">
+          <div class="progress-meta">
+            <span id="section-progress"></span>
+            <span class="dot"></span>
+            <span id="question-progress"></span>
+          </div>
+          <div class="progress-glass" aria-hidden="true">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+      </footer>
+
+      <dialog id="prefs-dialog" class="prefs-dialog">
+        <form method="dialog" class="prefs-panel">
+          <div class="prefs-header">
+            <div>
+              <p class="eyebrow">Adjust Experience</p>
+              <h2>Preferences</h2>
+            </div>
+            <button class="ghost-button" value="cancel" type="submit">Done</button>
+          </div>
+
+          <div class="prefs-grid">
+            <label>
+              Tone
+              <select id="pref-tone"></select>
+            </label>
+            <label>
+              Prompt Length
+              <select id="pref-length"></select>
+            </label>
+            <label>
+              Pace
+              <select id="pref-pace"></select>
+            </label>
+            <label>
+              Examples
+              <select id="pref-examples"></select>
+            </label>
+            <label>
+              Font Size
+              <select id="pref-font-size"></select>
+            </label>
+            <label>
+              Question Typing
+              <select id="pref-question-typing"></select>
+            </label>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog id="pause-dialog" class="prefs-dialog">
+        <form method="dialog" class="prefs-panel">
+          <div class="prefs-header">
+            <div>
+              <p class="eyebrow">Assessment Paused</p>
+              <h2>Assessment paused</h2>
+            </div>
+          </div>
+          <div class="intro-copy">
+            <p>Your place in the pre-assessment is being held here.</p>
+            <p>When you are ready, select <strong>Unpause</strong> to continue where you left off.</p>
+          </div>
+          <div class="action-row">
+            <button id="pause-unpause" class="primary-button" value="default" type="submit">Unpause</button>
+          </div>
+        </form>
+      </dialog>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

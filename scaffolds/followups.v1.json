@@ -1,0 +1,18 @@
+[
+  {
+    "followup_rule_id": "reason_for_intake_missing_context",
+    "parent_question_id": "reason_for_intake_001",
+    "trigger_type": "missing_required_detail",
+    "trigger_condition": "response_is_too_brief_to_identify_reason",
+    "followup_question_id": "reason_for_intake_followup_001",
+    "max_followups": 1
+  },
+  {
+    "followup_rule_id": "current_concerns_missing_impact",
+    "parent_question_id": "current_concerns_001",
+    "trigger_type": "missing_required_detail",
+    "trigger_condition": "response_mentions_difficulty_without_context_or_impact",
+    "followup_question_id": "current_concerns_followup_001",
+    "max_followups": 1
+  }
+]

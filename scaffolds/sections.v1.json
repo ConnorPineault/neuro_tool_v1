@@ -1,0 +1,91 @@
+[
+  {
+    "section_id": "intro_and_preferences",
+    "title": "Getting Started",
+    "description": "Identify who is answering and how the user wants the intake to work.",
+    "order_index": 1,
+    "is_required": true,
+    "entry_prompt": "We can set this up in a way that works best for you.",
+    "closing_prompt": "Thanks. We can change any of these settings later.",
+    "summary_enabled": false,
+    "question_ids": [
+      "answer_mode_001",
+      "input_mode_001",
+      "prompt_style_001",
+      "read_aloud_001"
+    ]
+  },
+  {
+    "section_id": "reason_for_intake",
+    "title": "Reason For Intake",
+    "description": "Capture why the person is doing the intake and what feels most important.",
+    "order_index": 2,
+    "is_required": true,
+    "entry_prompt": "We'll start with what brought you here and what feels important to share.",
+    "closing_prompt": "Thanks. I'll keep that in mind as we continue.",
+    "summary_enabled": true,
+    "question_ids": [
+      "reason_for_intake_001",
+      "reason_for_intake_002",
+      "reason_for_intake_followup_001"
+    ]
+  },
+  {
+    "section_id": "communication_and_support_context",
+    "title": "Communication And Support",
+    "description": "Capture communication preferences and support context.",
+    "order_index": 3,
+    "is_required": true,
+    "entry_prompt": "Next, I'll ask a few questions about communication and support needs.",
+    "closing_prompt": "Thanks. That helps shape the rest of the intake.",
+    "summary_enabled": true,
+    "question_ids": [
+      "communication_context_001",
+      "communication_context_002",
+      "support_context_001"
+    ]
+  },
+  {
+    "section_id": "current_experiences_and_concerns",
+    "title": "Current Experiences",
+    "description": "Capture current concerns, changes, stressors, and areas that may need follow-up.",
+    "order_index": 4,
+    "is_required": true,
+    "entry_prompt": "Now I'll ask about what things have been like recently.",
+    "closing_prompt": "Thank you. We can review this together before moving on.",
+    "summary_enabled": true,
+    "question_ids": [
+      "current_concerns_001",
+      "current_concerns_002",
+      "current_concerns_003",
+      "current_concerns_followup_001"
+    ]
+  },
+  {
+    "section_id": "health_and_history",
+    "title": "Health And History",
+    "description": "Placeholder section for health, history, and background items that may later be refined by the clinical team.",
+    "order_index": 5,
+    "is_required": false,
+    "entry_prompt": "There are a few background questions that may help provide context.",
+    "closing_prompt": "Thanks. We can skip anything that doesn't fit or come back later.",
+    "summary_enabled": true,
+    "question_ids": [
+      "health_history_001",
+      "health_history_002"
+    ]
+  },
+  {
+    "section_id": "review_and_close",
+    "title": "Review",
+    "description": "Review what was captured, identify any skipped items, and allow corrections.",
+    "order_index": 6,
+    "is_required": true,
+    "entry_prompt": "We're almost done. Let's review what I captured.",
+    "closing_prompt": "Thanks. Your intake is ready for review.",
+    "summary_enabled": false,
+    "question_ids": [
+      "review_001"
+    ]
+  }
+]

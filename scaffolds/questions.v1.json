@@ -1,0 +1,384 @@
+[
+  {
+    "question_id": "answer_mode_001",
+    "section_id": "intro_and_preferences",
+    "prompt_text": "Who is answering the intake today?",
+    "plain_language_variant": "Who will be answering questions today?",
+    "short_variant": "Who is answering today?",
+    "example_starters": [
+      "I am answering for myself",
+      "I'm here with someone supporting me",
+      "We are answering together"
+    ],
+    "help_text": "This helps me phrase questions in a way that fits who is answering.",
+    "response_type": "single_select",
+    "response_options": [
+      "self",
+      "caregiver_supported",
+      "together"
+    ],
+    "is_mandatory_core": true,
+    "is_skippable": false,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": false,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "input_mode_001",
+    "section_id": "intro_and_preferences",
+    "prompt_text": "How would you like to do this intake?",
+    "plain_language_variant": "What kind of input works best for you right now?",
+    "short_variant": "How would you like to answer?",
+    "example_starters": [
+      "Typing works best",
+      "I'd like to speak",
+      "I want both options"
+    ],
+    "help_text": "You can change this later.",
+    "response_type": "single_select",
+    "response_options": [
+      "text",
+      "voice",
+      "mixed"
+    ],
+    "is_mandatory_core": true,
+    "is_skippable": false,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": false,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "prompt_style_001",
+    "section_id": "intro_and_preferences",
+    "prompt_text": "What kind of prompt style would feel best right now?",
+    "plain_language_variant": "How would you like me to phrase things?",
+    "short_variant": "What prompt style works best?",
+    "example_starters": [
+      "Short and simple",
+      "Neutral and clear",
+      "A little warmer and more supportive"
+    ],
+    "help_text": "You can change this anytime during the intake.",
+    "response_type": "single_select",
+    "response_options": [
+      "short_simple",
+      "neutral_clear",
+      "warm_supportive",
+      "structured_concise"
+    ],
+    "is_mandatory_core": true,
+    "is_skippable": false,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": false,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "read_aloud_001",
+    "section_id": "intro_and_preferences",
+    "prompt_text": "Would you like prompts to be read aloud?",
+    "plain_language_variant": "Do you want me to read questions out loud?",
+    "short_variant": "Read prompts aloud?",
+    "example_starters": [
+      "Yes",
+      "No",
+      "Maybe later"
+    ],
+    "help_text": "You can turn this on or off later.",
+    "response_type": "single_select",
+    "response_options": [
+      "yes",
+      "no",
+      "maybe_later"
+    ],
+    "is_mandatory_core": true,
+    "is_skippable": false,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": false,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "reason_for_intake_001",
+    "section_id": "reason_for_intake",
+    "prompt_text": "What feels most important for us to understand about why you are doing this intake right now?",
+    "plain_language_variant": "What feels important to share about why you are here right now?",
+    "short_variant": "What feels most important to share right now?",
+    "example_starters": [
+      "Something has changed recently",
+      "I'm looking for support",
+      "I want someone to understand what has been hard"
+    ],
+    "help_text": "You can answer in your own words, skip, or come back later.",
+    "response_type": "free_text",
+    "is_mandatory_core": true,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [
+      "reason_for_intake_missing_context"
+    ],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "reason_for_intake_002",
+    "section_id": "reason_for_intake",
+    "prompt_text": "Has anything changed recently that made this feel more important now?",
+    "plain_language_variant": "Did something change recently that made this feel more important?",
+    "short_variant": "Has something changed recently?",
+    "example_starters": [
+      "Yes, something has changed",
+      "No, this has been ongoing",
+      "I'm not sure"
+    ],
+    "help_text": "A short answer is fine.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "reason_for_intake_followup_001",
+    "section_id": "reason_for_intake",
+    "prompt_text": "Would you like to say a little more about what feels most important right now?",
+    "plain_language_variant": "Can you share a little more about that, if you want to?",
+    "short_variant": "Would you like to say a little more?",
+    "example_starters": [
+      "What's hardest right now is...",
+      "The main reason is...",
+      "It matters because..."
+    ],
+    "help_text": "This follow-up is optional.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "communication_context_001",
+    "section_id": "communication_and_support_context",
+    "prompt_text": "What helps communication feel easier or clearer for you?",
+    "plain_language_variant": "What helps people communicate with you in a way that works better?",
+    "short_variant": "What helps communication work better for you?",
+    "example_starters": [
+      "Shorter questions help",
+      "I need more time to answer",
+      "It helps when things are written down"
+    ],
+    "help_text": "This can include pacing, wording, speech, typing, or anything else that helps.",
+    "response_type": "free_text",
+    "is_mandatory_core": true,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "communication_context_002",
+    "section_id": "communication_and_support_context",
+    "prompt_text": "Are there any things that make communication harder, more tiring, or less comfortable?",
+    "plain_language_variant": "Is there anything that makes communication harder for you?",
+    "short_variant": "What makes communication harder?",
+    "example_starters": [
+      "Too much information at once",
+      "Feeling rushed",
+      "Only having spoken options"
+    ],
+    "help_text": "You can mention wording, pace, environment, or anything else.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "support_context_001",
+    "section_id": "communication_and_support_context",
+    "prompt_text": "Is anyone supporting you with this intake today, or in day-to-day life in a way that feels important to mention?",
+    "plain_language_variant": "Is there anyone helping with this intake or with daily support that you want us to know about?",
+    "short_variant": "Is anyone supporting you in a way that feels important to mention?",
+    "example_starters": [
+      "I'm doing this on my own",
+      "Someone is helping me today",
+      "I have regular support in daily life"
+    ],
+    "help_text": "You can keep this brief.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "current_concerns_001",
+    "section_id": "current_experiences_and_concerns",
+    "prompt_text": "What has felt most difficult, stressful, or important lately?",
+    "plain_language_variant": "What has been hardest or most important lately?",
+    "short_variant": "What has felt most difficult lately?",
+    "example_starters": [
+      "Stress has been higher lately",
+      "Daily life has felt harder",
+      "There have been changes that are hard to manage"
+    ],
+    "help_text": "You can answer in your own words.",
+    "response_type": "free_text",
+    "is_mandatory_core": true,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [
+      "current_concerns_missing_impact"
+    ],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "current_concerns_002",
+    "section_id": "current_experiences_and_concerns",
+    "prompt_text": "Have there been any recent changes in routines, stress, health, support, or environment that feel connected to this?",
+    "plain_language_variant": "Have any changes happened recently that seem connected to this?",
+    "short_variant": "Have there been recent changes that feel connected?",
+    "example_starters": [
+      "A routine changed",
+      "Support changed",
+      "My environment changed"
+    ],
+    "help_text": "You can say as much or as little as you want.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "current_concerns_003",
+    "section_id": "current_experiences_and_concerns",
+    "prompt_text": "How are these experiences affecting daily life, energy, stress, or support needs right now?",
+    "plain_language_variant": "How is this affecting day-to-day life right now?",
+    "short_variant": "How is this affecting daily life right now?",
+    "example_starters": [
+      "It's making daily tasks harder",
+      "I'm more tired than usual",
+      "I need more support right now"
+    ],
+    "help_text": "A short answer is okay.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "current_concerns_followup_001",
+    "section_id": "current_experiences_and_concerns",
+    "prompt_text": "If you'd like, can you share a little more about how this is affecting you or what support would help?",
+    "plain_language_variant": "Would you like to say a little more about the impact or support you need?",
+    "short_variant": "Would you like to say a little more about the impact?",
+    "example_starters": [
+      "The biggest impact is...",
+      "What would help is...",
+      "It affects me by..."
+    ],
+    "help_text": "This follow-up is optional.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "health_history_001",
+    "section_id": "health_and_history",
+    "prompt_text": "Are there any health or background details that feel important to mention for context?",
+    "plain_language_variant": "Is there any health or background information you want us to know?",
+    "short_variant": "Any health or background details to mention?",
+    "example_starters": [
+      "There are health details that matter",
+      "There are past experiences that matter",
+      "Nothing comes to mind right now"
+    ],
+    "help_text": "This is a placeholder question and may be revised after clinical review.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "health_history_002",
+    "section_id": "health_and_history",
+    "prompt_text": "Are there any past assessments, supports, or services that feel important to include?",
+    "plain_language_variant": "Is there any past assessment or support history you want us to know about?",
+    "short_variant": "Any past assessments or supports to mention?",
+    "example_starters": [
+      "I've had past assessments",
+      "I've used services or supports before",
+      "I'd rather skip this for now"
+    ],
+    "help_text": "You can keep this brief or skip it.",
+    "response_type": "free_text",
+    "is_mandatory_core": false,
+    "is_skippable": true,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": true,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  },
+  {
+    "question_id": "review_001",
+    "section_id": "review_and_close",
+    "prompt_text": "Would you like to review, edit, or add anything before finishing?",
+    "plain_language_variant": "Do you want to change or add anything before we finish?",
+    "short_variant": "Anything to review or add?",
+    "example_starters": [
+      "I want to review something",
+      "I want to add something",
+      "No, I'm ready to finish"
+    ],
+    "help_text": "You can go back to any section.",
+    "response_type": "free_text",
+    "is_mandatory_core": true,
+    "is_skippable": false,
+    "allow_rephrase": true,
+    "allow_examples": true,
+    "allow_summary": false,
+    "followup_rule_ids": [],
+    "clinical_owner_status": "draft"
+  }
+]

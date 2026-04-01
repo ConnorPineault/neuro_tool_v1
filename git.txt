@@ -1,0 +1,7 @@
+cd /Users/connorpineault/Downloads/Root/Programming/WedApr1_2026
+git init
+git add .
+git commit -m "Prepare prototype for GitHub Pages"
+git branch -M main
+git remote add origin https://github.com/ConnorPineault/neuro_tool_v1.git
+git push -u origin main
