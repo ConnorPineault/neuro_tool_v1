@@ -18,6 +18,8 @@ const state = {
   questionTypingTimer: null,
   typingHintDismissed: false,
   lastRenderedQuestionId: null,
+  speechRecognition: null,
+  isListening: false,
 };
 
 const els = {
@@ -143,6 +145,87 @@ function wireDialog() {
     if (state.currentView === "welcome") return;
     els.pauseDialog.showModal();
   });
+}
+
+function ensureSpeechRecognition() {
+  if (state.speechRecognition) return state.speechRecognition;
+
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) return null;
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  recognition.continuous = false;
+
+  recognition.onstart = () => {
+    state.isListening = true;
+    updateSttButtonState();
+  };
+
+  recognition.onend = () => {
+    state.isListening = false;
+    updateSttButtonState();
+  };
+
+  recognition.onerror = () => {
+    state.isListening = false;
+    updateSttButtonState();
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results?.[0]?.[0]?.transcript?.trim();
+    if (!transcript) return;
+
+    const textField = document.querySelector("#question-response");
+    if (!textField) return;
+
+    const existing = textField.value.trim();
+    textField.value = existing ? `${existing} ${transcript}` : transcript;
+    textField.focus();
+  };
+
+  state.speechRecognition = recognition;
+  return recognition;
+}
+
+function updateSttButtonState() {
+  const sttTrigger = document.querySelector("#stt-trigger");
+  if (!sttTrigger) return;
+
+  sttTrigger.textContent = state.isListening ? "Listening..." : "Speak";
+  sttTrigger.setAttribute(
+    "aria-label",
+    state.isListening ? "Listening for speech input" : "Start speech to text",
+  );
+}
+
+function startSpeechToText() {
+  const recognition = ensureSpeechRecognition();
+  if (!recognition) {
+    window.alert("Speech to text is not available in this browser.");
+    return;
+  }
+
+  if (state.isListening) {
+    recognition.stop();
+    return;
+  }
+
+  try {
+    recognition.start();
+  } catch {
+    // Ignore duplicate start attempts from rapid clicks.
+  }
+}
+
+function stopSpeechToText() {
+  if (state.speechRecognition && state.isListening) {
+    state.speechRecognition.stop();
+  }
 }
 
 function wireKeyboardNavigation() {
@@ -353,8 +436,9 @@ function render(options = {}) {
   const sttTrigger = document.querySelector("#stt-trigger");
   if (sttTrigger) {
     sttTrigger.addEventListener("click", () => {
-      // Placeholder only; future STT hook will go here.
+      startSpeechToText();
     });
+    updateSttButtonState();
   }
 
   const skipButton = document.querySelector("#action-skip");
@@ -517,6 +601,7 @@ function isFirstQuestion() {
 function goBack() {
   if (!hasPreviousQuestion()) return;
 
+  stopSpeechToText();
   state.helpVisible = false;
   state.exampleVisible = false;
   state.rephraseMode = "default";
@@ -535,6 +620,7 @@ function goBack() {
 
 function advance() {
   const section = getCurrentSection();
+  stopSpeechToText();
   state.exampleVisible = state.preferences.offer_examples_mode === "proactive";
   state.rephraseMode = "default";
   state.helpVisible = false;
@@ -593,6 +679,7 @@ function renderSectionSummary(section) {
 }
 
 function moveToNextSection() {
+  stopSpeechToText();
   state.sectionIndex += 1;
   state.questionIndex = 0;
   state.helpVisible = false;
