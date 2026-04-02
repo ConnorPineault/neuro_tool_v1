@@ -262,7 +262,7 @@ function stopSpeechToText() {
 }
 
 function readQuestionAloud() {
-  window.alert("Feature coming soon.");
+  window.alert("Read aloud feature coming soon...");
 }
 
 function wireKeyboardNavigation() {
