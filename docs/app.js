@@ -417,7 +417,7 @@ function render(options = {}) {
         <div class="nav-cluster">
           <button class="arrow-button" type="button" id="nav-back" ${hasPreviousQuestion() ? "" : "disabled"} aria-label="Go back">←</button>
           <button class="nav-skip" type="button" id="action-skip" ${question.is_skippable ? "" : "disabled"}>Skip</button>
-          <button class="arrow-button next-button" type="button" id="submit-answer" aria-label="Next">Next →</button>
+          <button class="arrow-button next-button" type="button" id="submit-answer" aria-label="Next">Next</button>
         </div>
       </div>
     </div>

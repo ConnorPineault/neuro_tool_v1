@@ -815,12 +815,12 @@ pre {
 @media (max-width: 720px) {
   .page-shell {
     padding: 0;
-    padding-bottom: 78px;
+    padding-bottom: 74px;
   }
 
   .stage-card {
     min-height: auto;
-    padding: 8px 14px 12px;
+    padding: 6px 14px 10px;
   }
 
   .topbar,
@@ -841,24 +841,137 @@ pre {
   }
 
   h2 {
-    font-size: 1.7rem;
+    font-size: 1.55rem;
   }
 
   .footer-actions.nav-footer {
-    padding-top: 2vh;
+    padding-top: 1.4vh;
   }
 
   .question-copy {
     max-width: 100%;
-    margin-top: 1vh;
+    margin-top: 0.4vh;
   }
 
   .response-area {
-    padding-top: 38px;
+    padding-top: 28px;
   }
 
   textarea,
   .option-list {
     width: 100%;
+  }
+
+  .arrow-button {
+    width: 48px;
+    height: 48px;
+    font-size: 1.18rem;
+  }
+
+  .next-button {
+    min-width: 88px;
+    padding: 0 14px;
+  }
+
+  .nav-skip {
+    min-width: 76px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --question-size: 1.42rem;
+    --body-size: 0.93rem;
+    --control-size: 0.93rem;
+  }
+
+  .page-shell {
+    padding-bottom: 70px;
+  }
+
+  .topbar {
+    padding-top: 12px;
+    padding-bottom: 4px;
+  }
+
+  .topbar,
+  .footer-bar {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .brand-wordmark {
+    font-size: 1.02rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .stage-card {
+    padding: 4px 12px 8px;
+  }
+
+  .welcome-screen {
+    min-height: calc(100dvh - 132px);
+  }
+
+  .welcome-title {
+    font-size: clamp(2.2rem, 14vw, 3.6rem);
+  }
+
+  .screen-layout {
+    gap: 18px;
+  }
+
+  .question-copy {
+    margin-top: 0;
+  }
+
+  .response-area {
+    padding-top: 24px;
+  }
+
+  textarea {
+    min-height: 116px;
+    padding: 16px 54px 16px 16px;
+  }
+
+  .option-item.card-option,
+  .option-item {
+    padding: 14px 14px;
+  }
+
+  .subtle-actions {
+    gap: 10px;
+  }
+
+  .nav-cluster {
+    gap: 14px;
+  }
+
+  .arrow-button {
+    width: 44px;
+    height: 44px;
+    font-size: 1.08rem;
+  }
+
+  .next-button {
+    min-width: 80px;
+    padding: 0 12px;
+  }
+
+  .nav-skip {
+    min-width: 68px;
+    padding: 7px 11px;
+  }
+
+  .progress-meta {
+    font-size: 0.75rem;
+  }
+
+  .progress-glass {
+    height: 8px;
   }
 }
