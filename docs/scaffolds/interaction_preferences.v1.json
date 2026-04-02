@@ -21,6 +21,7 @@
     "progress_style": "section_only",
     "font_size": "standard",
     "question_typing_effect": "on",
+    "question_typing_speed": "slow",
     "contrast_mode": "default",
     "reduced_motion": true,
     "hide_nonessential_ui": false,
@@ -43,6 +44,7 @@
     "progress_style": ["section_only", "detailed", "hidden"],
     "font_size": ["standard", "large", "extra_large"],
     "question_typing_effect": ["off", "on"],
+    "question_typing_speed": ["standard", "slow", "slower"],
     "contrast_mode": ["default", "high_contrast", "soft_contrast"],
     "summary_length": ["brief", "standard"]
   }
