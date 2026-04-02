@@ -34,6 +34,7 @@ const els = {
   examples: document.querySelector("#pref-examples"),
   fontSize: document.querySelector("#pref-font-size"),
   questionTyping: document.querySelector("#pref-question-typing"),
+  questionTypingSpeed: document.querySelector("#pref-question-typing-speed"),
   pauseToggle: document.querySelector("#pause-toggle"),
   prefsToggle: document.querySelector("#prefs-toggle"),
   prefsDialog: document.querySelector("#prefs-dialog"),
@@ -103,6 +104,11 @@ function wirePreferenceControls(options) {
     options.question_typing_effect,
     state.preferences.question_typing_effect,
   );
+  populateSelect(
+    els.questionTypingSpeed,
+    options.question_typing_speed,
+    state.preferences.question_typing_speed,
+  );
 
   els.tone.addEventListener("change", (event) => {
     state.preferences.tone_style = event.target.value;
@@ -127,6 +133,10 @@ function wirePreferenceControls(options) {
   });
   els.questionTyping.addEventListener("change", (event) => {
     state.preferences.question_typing_effect = event.target.value;
+    render();
+  });
+  els.questionTypingSpeed.addEventListener("change", (event) => {
+    state.preferences.question_typing_speed = event.target.value;
     render();
   });
 }
@@ -228,6 +238,20 @@ function stopSpeechToText() {
   }
 }
 
+function readQuestionAloud(text) {
+  if (!window.speechSynthesis) {
+    window.alert("Read aloud is not available in this browser.");
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 0.95;
+  utterance.pitch = 1;
+  utterance.lang = "en-US";
+  window.speechSynthesis.speak(utterance);
+}
+
 function wireKeyboardNavigation() {
   document.addEventListener("keydown", (event) => {
     if (state.currentView === "welcome") {
@@ -271,7 +295,7 @@ function wireKeyboardNavigation() {
 function populateSelect(select, options, selected) {
   select.innerHTML = options
     .map((option) => {
-      const label = option.replaceAll("_", " ");
+      const label = toLabel(option);
       const isSelected = option === selected ? "selected" : "";
       return `<option value="${option}" ${isSelected}>${label}</option>`;
     })
@@ -346,7 +370,13 @@ function render(options = {}) {
       ? `
         <div class="example-box">
           <strong>Starter ideas</strong>
-          <ul>${question.example_starters.map((item) => `<li>${item}</li>`).join("")}</ul>
+          ${question.response_type === "free_text"
+            ? `<div class="example-actions">${question.example_starters
+                .map(
+                  (item, index) => `<button class="example-choice" type="button" data-example-index="${index}">${item}</button>`,
+                )
+                .join("")}</div>`
+            : `<ul>${question.example_starters.map((item) => `<li>${item}</li>`).join("")}</ul>`}
         </div>
       `
       : "";
@@ -357,7 +387,7 @@ function render(options = {}) {
         <div class="question-copy">
           <h2><span id="question-heading" class="typed-question"></span></h2>
           <div class="question-audio-row">
-            <button class="audio-trigger" type="button" id="tts-trigger" aria-label="Read question aloud" title="Read question aloud">Read</button>
+            <button class="audio-trigger" type="button" id="tts-trigger" aria-label="Read question aloud" title="Read question aloud">Read Aloud</button>
           </div>
           ${firstQuestionHint}
         </div>
@@ -374,7 +404,6 @@ function render(options = {}) {
           <button class="text-button" type="button" id="action-rephrase">Rephrase</button>
           <button class="text-button" type="button" id="action-example">${state.exampleVisible ? "Hide example" : "Show example"}</button>
           ${question.help_text ? `<button class="text-button" type="button" id="action-help">${state.helpVisible ? "Hide help" : "Show help"}</button>` : ""}
-          <button class="text-button" type="button" id="action-repeat">Repeat</button>
         </div>
       </div>
 
@@ -382,7 +411,7 @@ function render(options = {}) {
         <div class="nav-cluster">
           <button class="arrow-button" type="button" id="nav-back" ${hasPreviousQuestion() ? "" : "disabled"} aria-label="Go back">←</button>
           <button class="nav-skip" type="button" id="action-skip" ${question.is_skippable ? "" : "disabled"}>Skip</button>
-          <button class="arrow-button" type="button" id="submit-answer" aria-label="Continue">→</button>
+          <button class="arrow-button next-button" type="button" id="submit-answer" aria-label="Next">Next →</button>
         </div>
       </div>
     </div>
@@ -391,7 +420,7 @@ function render(options = {}) {
   renderQuestionHeading(question.question_id, questionText, animateQuestion);
 
   document.querySelector("#tts-trigger").addEventListener("click", () => {
-    // Placeholder only; future TTS hook will go here.
+    readQuestionAloud(questionText);
   });
   document.querySelector("#submit-answer").addEventListener("click", () => {
     saveCurrentAnswer(question);
@@ -402,9 +431,6 @@ function render(options = {}) {
       goBack();
     });
   }
-  document.querySelector("#action-repeat").addEventListener("click", () => {
-    render({ animateQuestion: false });
-  });
   document.querySelector("#action-rephrase").addEventListener("click", () => {
     state.rephraseMode =
       state.rephraseMode === "default"
@@ -432,6 +458,16 @@ function render(options = {}) {
       render({ animateQuestion: false });
     });
   }
+
+  const exampleButtons = document.querySelectorAll("[data-example-index]");
+  exampleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const textField = document.querySelector("#question-response");
+      if (!textField) return;
+      textField.value = question.example_starters[Number(button.dataset.exampleIndex)] || "";
+      textField.focus();
+    });
+  });
 
   const sttTrigger = document.querySelector("#stt-trigger");
   if (sttTrigger) {
@@ -476,7 +512,7 @@ function renderQuestionHeading(questionId, text, animateQuestion) {
     index += 1;
 
     if (index <= text.length) {
-      state.questionTypingTimer = window.setTimeout(step, 31);
+      state.questionTypingTimer = window.setTimeout(step, getTypingDelay());
       return;
     }
 
@@ -492,6 +528,13 @@ function clearQuestionTyping() {
     window.clearTimeout(state.questionTypingTimer);
     state.questionTypingTimer = null;
   }
+}
+
+function getTypingDelay() {
+  const speed = state.preferences.question_typing_speed;
+  if (speed === "standard") return 22;
+  if (speed === "slower") return 42;
+  return 31;
 }
 
 function renderWelcome() {
@@ -601,6 +644,7 @@ function isFirstQuestion() {
 function goBack() {
   if (!hasPreviousQuestion()) return;
 
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
   stopSpeechToText();
   state.helpVisible = false;
   state.exampleVisible = false;
@@ -620,6 +664,7 @@ function goBack() {
 
 function advance() {
   const section = getCurrentSection();
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
   stopSpeechToText();
   state.exampleVisible = state.preferences.offer_examples_mode === "proactive";
   state.rephraseMode = "default";
@@ -679,6 +724,7 @@ function renderSectionSummary(section) {
 }
 
 function moveToNextSection() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
   stopSpeechToText();
   state.sectionIndex += 1;
   state.questionIndex = 0;

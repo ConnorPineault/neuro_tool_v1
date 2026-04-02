@@ -484,6 +484,29 @@ p {
   color: var(--text);
 }
 
+.example-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.example-choice {
+  padding: 7px 12px;
+  border: 1px solid rgba(16, 24, 40, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--text-soft);
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.example-choice:hover {
+  transform: translateY(-1px);
+  border-color: rgba(16, 24, 40, 0.16);
+  background: rgba(255, 255, 255, 0.92);
+}
+
 .response-area {
   display: grid;
   gap: 10px;
@@ -664,6 +687,16 @@ textarea {
   font-size: 1.32rem;
   cursor: pointer;
   transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+}
+
+.next-button {
+  min-width: 94px;
+  padding: 0 16px;
+  gap: 8px;
+  background: linear-gradient(180deg, rgba(130, 85, 171, 0.96) 0%, rgba(111, 44, 145, 0.96) 100%);
+  color: #fff;
+  border-color: rgba(111, 44, 145, 0.16);
+  box-shadow: 0 8px 20px rgba(111, 44, 145, 0.18);
 }
 
 .arrow-button:hover {
