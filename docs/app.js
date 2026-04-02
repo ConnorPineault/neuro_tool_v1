@@ -772,13 +772,17 @@ function renderReview() {
         .join("");
 
       return `
-        <article class="review-item">
-          <h3>${section.title}</h3>
+        <details class="review-item review-disclosure">
+          <summary>
+            <span>${section.title}</span>
+          </summary>
           <ul>${answers}</ul>
-        </article>
+        </details>
       `;
     })
     .join("");
+
+  const reportText = JSON.stringify(buildReportPayload(), null, 2);
 
   els.screen.innerHTML = `
     <div class="screen-layout">
@@ -791,10 +795,15 @@ function renderReview() {
 
       <div class="review-list">${sections}</div>
 
-      <div class="summary-box compact-summary-box">
-        <strong>Structured Output Preview</strong>
-        <pre>${escapeHtml(JSON.stringify(buildReportPayload(), null, 2))}</pre>
-      </div>
+      <details class="summary-box compact-summary-box review-disclosure">
+        <summary>
+          <span>Structured Output Preview</span>
+        </summary>
+        <pre>${escapeHtml(reportText)}</pre>
+        <div class="review-download-row">
+          <button class="ghost-button" id="download-output" type="button">Download .txt</button>
+        </div>
+      </details>
 
       <div class="footer-actions">
         <div></div>
@@ -808,6 +817,9 @@ function renderReview() {
   document.querySelector("#review-finish").addEventListener("click", () => {
     renderCompletion();
   });
+  document.querySelector("#download-output").addEventListener("click", () => {
+    downloadTextFile("structured-output-preview.txt", reportText);
+  });
 }
 
 function renderCompletion() {
@@ -816,15 +828,15 @@ function renderCompletion() {
   els.progressBlock.classList.add("hidden");
   if (els.progressFill) els.progressFill.style.width = "100%";
   els.screen.innerHTML = `
-    <div class="screen-layout">
-      <div class="screen-head">
+    <div class="screen-layout completion-screen">
+      <div class="screen-head completion-head">
         <h2>Thank you for filling out the form</h2>
         <div class="intro-copy">
           <p>Your intake has been submitted. You will be contacted soon with next steps.</p>
         </div>
       </div>
 
-      <div class="resource-list compact-resource-list">
+      <div class="resource-list compact-resource-list completion-resources">
         <h3>While You Wait</h3>
         <div class="resource-rows">
           <p>Write down anything else you want the team to know about communication, sensory needs, or support.</p>
@@ -842,6 +854,18 @@ function buildReportPayload() {
     interaction_preferences_snapshot: { ...state.preferences },
     responses: Object.values(state.responses),
   };
+}
+
+function downloadTextFile(filename, contents) {
+  const blob = new Blob([contents], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
 }
 
 function applyFontSizePreference() {

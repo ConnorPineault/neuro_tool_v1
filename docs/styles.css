@@ -784,6 +784,72 @@ textarea {
   line-height: 1.6;
 }
 
+.review-disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.review-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.review-disclosure summary::after {
+  content: "+";
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--text-soft);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.review-disclosure[open] summary::after {
+  content: "-";
+}
+
+.review-disclosure ul,
+.review-disclosure pre,
+.review-download-row {
+  margin-top: 14px;
+}
+
+.review-download-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.completion-screen {
+  min-height: calc(100vh - 176px);
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+}
+
+.completion-head,
+.completion-resources {
+  width: min(760px, 100%);
+  text-align: center;
+}
+
+.completion-head .intro-copy,
+.completion-resources {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .review-item ul,
 .summary-box ul,
 .example-box ul {
