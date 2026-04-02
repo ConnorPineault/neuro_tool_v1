@@ -20,6 +20,8 @@ const state = {
   lastRenderedQuestionId: null,
   speechRecognition: null,
   isListening: false,
+  keepListening: false,
+  speechRestartTimer: null,
 };
 
 const els = {
@@ -169,7 +171,7 @@ function ensureSpeechRecognition() {
   recognition.lang = "en-US";
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
-  recognition.continuous = false;
+  recognition.continuous = true;
 
   recognition.onstart = () => {
     state.isListening = true;
@@ -179,10 +181,23 @@ function ensureSpeechRecognition() {
   recognition.onend = () => {
     state.isListening = false;
     updateSttButtonState();
+
+    if (!state.keepListening) return;
+
+    state.speechRestartTimer = window.setTimeout(() => {
+      try {
+        recognition.start();
+      } catch {
+        // Ignore restart collisions while the browser settles.
+      }
+    }, 160);
   };
 
-  recognition.onerror = () => {
+  recognition.onerror = (event) => {
     state.isListening = false;
+    if (event?.error !== "no-speech") {
+      state.keepListening = false;
+    }
     updateSttButtonState();
   };
 
@@ -206,10 +221,10 @@ function updateSttButtonState() {
   const sttTrigger = document.querySelector("#stt-trigger");
   if (!sttTrigger) return;
 
-  sttTrigger.textContent = state.isListening ? "Listening..." : "Speak";
+  sttTrigger.textContent = state.isListening ? "Stop" : "Speak";
   sttTrigger.setAttribute(
     "aria-label",
-    state.isListening ? "Listening for speech input" : "Start speech to text",
+    state.isListening ? "Stop speech to text" : "Start speech to text",
   );
 }
 
@@ -221,9 +236,12 @@ function startSpeechToText() {
   }
 
   if (state.isListening) {
+    state.keepListening = false;
     recognition.stop();
     return;
   }
+
+  state.keepListening = true;
 
   try {
     recognition.start();
@@ -233,23 +251,18 @@ function startSpeechToText() {
 }
 
 function stopSpeechToText() {
+  state.keepListening = false;
+  if (state.speechRestartTimer) {
+    window.clearTimeout(state.speechRestartTimer);
+    state.speechRestartTimer = null;
+  }
   if (state.speechRecognition && state.isListening) {
     state.speechRecognition.stop();
   }
 }
 
-function readQuestionAloud(text) {
-  if (!window.speechSynthesis) {
-    window.alert("Read aloud is not available in this browser.");
-    return;
-  }
-
-  window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 0.95;
-  utterance.pitch = 1;
-  utterance.lang = "en-US";
-  window.speechSynthesis.speak(utterance);
+function readQuestionAloud() {
+  window.alert("Feature coming soon.");
 }
 
 function wireKeyboardNavigation() {
