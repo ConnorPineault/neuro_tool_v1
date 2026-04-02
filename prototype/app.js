@@ -293,7 +293,13 @@ function wireKeyboardNavigation() {
 }
 
 function populateSelect(select, options, selected) {
-  select.innerHTML = options
+  const safeOptions = Array.isArray(options)
+    ? options
+    : selected
+      ? [selected]
+      : [];
+
+  select.innerHTML = safeOptions
     .map((option) => {
       const label = toLabel(option);
       const isSelected = option === selected ? "selected" : "";
