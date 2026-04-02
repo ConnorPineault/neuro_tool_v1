@@ -727,8 +727,8 @@ textarea {
 
 .review-list {
   display: grid;
-  gap: 14px;
-  width: 100%;
+  gap: 12px;
+  width: min(820px, 100%);
 }
 
 .resource-list {
@@ -742,6 +742,44 @@ textarea {
 
 .resource-list li {
   margin-bottom: 12px;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+.review-item {
+  padding: 18px 20px;
+  border: 1px solid rgba(16, 24, 40, 0.08);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 26px rgba(17, 24, 39, 0.04);
+}
+
+.compact-summary-box {
+  width: min(820px, 100%);
+  padding: 18px 20px;
+}
+
+.compact-summary-box strong {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.compact-resource-list {
+  width: min(760px, 100%);
+  padding: 16px 0 4px;
+}
+
+.compact-resource-list h3 {
+  margin-bottom: 14px;
+}
+
+.resource-rows {
+  display: grid;
+  gap: 12px;
+}
+
+.resource-rows p {
+  margin: 0;
   color: var(--text-soft);
   line-height: 1.6;
 }

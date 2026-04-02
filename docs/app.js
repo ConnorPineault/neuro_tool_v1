@@ -770,17 +770,16 @@ function renderReview() {
   els.screen.innerHTML = `
     <div class="screen-layout">
       <div class="screen-head">
-        <p class="eyebrow">Complete</p>
         <h2>Review what was captured</h2>
         <div class="intro-copy">
-          <p>This prototype keeps the review step separate so the intake stays low-clutter while each question is being answered.</p>
+          <p>Take a quick look through your answers before finishing.</p>
         </div>
       </div>
 
       <div class="review-list">${sections}</div>
 
-      <div class="summary-box">
-        <strong>Structured output preview</strong>
+      <div class="summary-box compact-summary-box">
+        <strong>Structured Output Preview</strong>
         <pre>${escapeHtml(JSON.stringify(buildReportPayload(), null, 2))}</pre>
       </div>
 
@@ -806,24 +805,20 @@ function renderCompletion() {
   els.screen.innerHTML = `
     <div class="screen-layout">
       <div class="screen-head">
-        <p class="eyebrow">Thank You</p>
         <h2>Thank you for filling out the form</h2>
         <div class="intro-copy">
-          <p>Your intake has been submitted successfully.</p>
-          <p>You will be contacted soon with next steps.</p>
+          <p>Your intake has been submitted. You will be contacted soon with next steps.</p>
         </div>
       </div>
 
-      <div class="resource-list">
-        <h3>While you wait</h3>
-        <ul>
-          <li>You may want to write down anything else you would like the team to understand about communication preferences, sensory needs, or support needs.</li>
-          <li>If you need support in the meantime, you could connect with a trusted person, existing care team, or local support service. This is placeholder content for now.</li>
-          <li>A member of the team will review your intake and contact you soon. Final wording and resources can be updated later.</li>
-        </ul>
+      <div class="resource-list compact-resource-list">
+        <h3>While You Wait</h3>
+        <div class="resource-rows">
+          <p>Write down anything else you want the team to know about communication, sensory needs, or support.</p>
+          <p>If you need support in the meantime, you could connect with a trusted person, care team, or local support service.</p>
+          <p>A member of the team will review your intake and contact you soon.</p>
+        </div>
       </div>
-
-      <p class="brand-subtitle">Placeholder resources are being used for this prototype and can be replaced with approved clinic-specific information later.</p>
     </div>
   `;
 }
