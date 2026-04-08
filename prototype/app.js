@@ -720,6 +720,7 @@ function renderSectionSummary(section) {
   els.screen.innerHTML = `
     <div class="screen-layout">
       <div class="screen-head">
+        <p class="eyebrow">Section Review</p>
         <h2>${section.title}</h2>
         <div class="summary-box">
           <strong>Here is what the prototype captured.</strong>
