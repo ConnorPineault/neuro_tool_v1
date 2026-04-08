@@ -371,10 +371,11 @@ function render(options = {}) {
 
   const questionText = getQuestionText(question);
   const existingResponse = state.responses[question.question_id];
+  const supportsAssistiveHints = question.response_type === "free_text";
   const firstQuestionHint = isFirstQuestion() && !state.typingHintDismissed
     ? `<div class="question-hint"><span>Toggle the typing effect in Preferences!</span><button class="question-hint-dismiss" type="button" id="dismiss-typing-hint">Okay</button></div>`
     : "";
-  const helper = question.help_text
+  const helper = supportsAssistiveHints && question.help_text
     && state.helpVisible
     ? `
       <div class="helper-box">
@@ -385,7 +386,7 @@ function render(options = {}) {
     : "";
 
   const exampleBox =
-    state.exampleVisible && question.example_starters?.length
+    supportsAssistiveHints && state.exampleVisible && question.example_starters?.length
       ? `
         <div class="example-box">
           <strong>Starter ideas</strong>
@@ -421,8 +422,8 @@ function render(options = {}) {
       <div class="footer-actions">
         <div class="subtle-actions secondary">
           <button class="text-button" type="button" id="action-rephrase">Rephrase</button>
-          <button class="text-button" type="button" id="action-example">${state.exampleVisible ? "Hide example" : "Show example"}</button>
-          ${question.help_text ? `<button class="text-button" type="button" id="action-help">${state.helpVisible ? "Hide help" : "Show help"}</button>` : ""}
+          ${supportsAssistiveHints && question.example_starters?.length ? `<button class="text-button" type="button" id="action-example">${state.exampleVisible ? "Hide example" : "Show example"}</button>` : ""}
+          ${supportsAssistiveHints && question.help_text ? `<button class="text-button" type="button" id="action-help">${state.helpVisible ? "Hide help" : "Show help"}</button>` : ""}
         </div>
       </div>
 
@@ -459,10 +460,13 @@ function render(options = {}) {
           : "default";
     render();
   });
-  document.querySelector("#action-example").addEventListener("click", () => {
-    state.exampleVisible = !state.exampleVisible;
-    render({ animateQuestion: false });
-  });
+  const exampleButton = document.querySelector("#action-example");
+  if (exampleButton) {
+    exampleButton.addEventListener("click", () => {
+      state.exampleVisible = !state.exampleVisible;
+      render({ animateQuestion: false });
+    });
+  }
   const dismissHintButton = document.querySelector("#dismiss-typing-hint");
   if (dismissHintButton) {
     dismissHintButton.addEventListener("click", () => {

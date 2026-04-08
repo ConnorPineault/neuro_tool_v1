@@ -927,7 +927,6 @@ pre {
     padding: 6px 14px 10px;
   }
 
-  .topbar,
   .footer-bar,
   .footer-actions {
     flex-direction: column;
@@ -938,6 +937,24 @@ pre {
   .footer-bar {
     padding-left: 18px;
     padding-right: 18px;
+  }
+
+  .topbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .topbar-actions {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .ghost-button {
+    min-width: 0;
+    padding: 9px 12px;
+    font-size: 0.88rem;
   }
 
   .progress-block {
@@ -1005,12 +1022,28 @@ pre {
     padding-right: 14px;
   }
 
+  .brand-lockup {
+    gap: 10px;
+    min-width: 0;
+  }
+
   .brand-wordmark {
-    font-size: 1.02rem;
+    font-size: 0.96rem;
+    letter-spacing: 0.08em;
   }
 
   .brand-subtitle {
-    font-size: 0.82rem;
+    font-size: 0.76rem;
+  }
+
+  .topbar-actions {
+    gap: 6px;
+  }
+
+  .ghost-button {
+    padding: 7px 10px;
+    font-size: 0.8rem;
+    border-radius: 999px;
   }
 
   .stage-card {
