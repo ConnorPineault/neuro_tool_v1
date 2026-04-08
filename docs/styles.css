@@ -647,6 +647,10 @@ textarea {
   color: var(--text);
 }
 
+.option-item.card-option .option-title {
+  font-size: 1.19rem;
+}
+
 .option-description {
   color: var(--text-soft);
   line-height: 1.5;
