@@ -379,16 +379,6 @@ function render(options = {}) {
   const firstQuestionHint = isFirstQuestion() && !state.typingHintDismissed
     ? `<div class="question-hint"><span>Toggle the typing effect in Preferences!</span><button class="question-hint-dismiss" type="button" id="dismiss-typing-hint">Okay</button></div>`
     : "";
-  const helper = supportsAssistiveHints && question.help_text
-    && state.helpVisible
-    ? `
-      <div class="helper-box">
-        <strong>Help</strong>
-        <p>${question.help_text}</p>
-      </div>
-    `
-    : "";
-
   const exampleBox =
     supportsAssistiveHints && state.exampleVisible && question.example_starters?.length
       ? `
@@ -420,14 +410,12 @@ function render(options = {}) {
       <div class="response-area">
         ${renderResponseControl(question, existingResponse)}
         ${exampleBox}
-        ${helper}
       </div>
 
       <div class="footer-actions">
         <div class="subtle-actions secondary">
           <button class="text-button" type="button" id="action-rephrase">Rephrase</button>
           ${supportsAssistiveHints && question.example_starters?.length ? `<button class="text-button" type="button" id="action-example">${state.exampleVisible ? "Hide example" : "Show example"}</button>` : ""}
-          ${supportsAssistiveHints && question.help_text ? `<button class="text-button" type="button" id="action-help">${state.helpVisible ? "Hide help" : "Show help"}</button>` : ""}
         </div>
       </div>
 
@@ -478,14 +466,6 @@ function render(options = {}) {
       render({ animateQuestion: false });
     });
   }
-  const helpButton = document.querySelector("#action-help");
-  if (helpButton) {
-    helpButton.addEventListener("click", () => {
-      state.helpVisible = !state.helpVisible;
-      render({ animateQuestion: false });
-    });
-  }
-
   const exampleButtons = document.querySelectorAll("[data-example-index]");
   exampleButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -717,7 +697,14 @@ function renderSectionSummary(section) {
     .map((response) => {
       const question = state.config.questionMap[response.question_id];
       const answer = response.was_skipped ? "Skipped" : response.raw_response || "No answer";
-      return `<li><strong>${question.short_variant || question.prompt_text}</strong><span class="review-answer-text">${escapeHtml(answer)}</span></li>`;
+      return `
+        <li>
+          <details class="section-answer-disclosure">
+            <summary>${question.short_variant || question.prompt_text}</summary>
+            <span class="review-answer-text">${escapeHtml(answer)}</span>
+          </details>
+        </li>
+      `;
     })
     .join("");
 

@@ -494,20 +494,24 @@ p {
 }
 
 .example-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+  justify-content: center;
 }
 
 .example-choice {
-  padding: 7px 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
   border: 1px solid rgba(16, 24, 40, 0.1);
-  border-radius: 999px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.72);
   color: var(--text-soft);
   font-size: 0.84rem;
   cursor: pointer;
+  text-align: center;
 }
 
 .example-choice:hover {
@@ -878,8 +882,7 @@ textarea {
 }
 
 .section-review-list li {
-  display: grid;
-  gap: 6px;
+  display: block;
 }
 
 .review-answer-text {
@@ -887,6 +890,31 @@ textarea {
   line-height: 1.6;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+.section-answer-disclosure summary {
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.section-answer-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.section-answer-disclosure summary::after {
+  content: " +";
+  color: var(--text-soft);
+}
+
+.section-answer-disclosure[open] summary::after {
+  content: " -";
+}
+
+.section-answer-disclosure .review-answer-text {
+  display: block;
+  margin-top: 8px;
 }
 
 .prefs-dialog {
@@ -1143,6 +1171,10 @@ pre {
 
   .subtle-actions {
     gap: 10px;
+  }
+
+  .example-actions {
+    grid-template-columns: 1fr;
   }
 
   .nav-cluster {
