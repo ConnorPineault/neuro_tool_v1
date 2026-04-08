@@ -553,7 +553,7 @@ function renderWelcome() {
     <section class="welcome-screen">
       <div class="welcome-inner">
         <h2 class="welcome-title">Welcome</h2>
-        <button class="primary-button" id="welcome-start" type="button">Get started</button>
+        <button class="primary-button" id="welcome-start" type="button">Get started...</button>
       </div>
     </section>
   `;
