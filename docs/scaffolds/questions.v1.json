@@ -54,9 +54,9 @@
   {
     "question_id": "prompt_style_001",
     "section_id": "intro_and_preferences",
-    "prompt_text": "What kind of prompt style would feel best right now?",
-    "plain_language_variant": "How would you like me to phrase things?",
-    "short_variant": "What prompt style works best?",
+    "prompt_text": "What kind of question style would feel best right now?",
+    "plain_language_variant": "How would you like me to ask things?",
+    "short_variant": "What question style works best?",
     "example_starters": [
       "Short and simple",
       "Neutral and clear",

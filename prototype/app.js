@@ -219,6 +219,7 @@ function ensureSpeechRecognition() {
 
 function updateSttButtonState() {
   const sttTrigger = document.querySelector("#stt-trigger");
+  const textField = document.querySelector("#question-response");
   if (!sttTrigger) return;
 
   sttTrigger.textContent = state.isListening ? "Stop" : "Speak";
@@ -226,6 +227,9 @@ function updateSttButtonState() {
     "aria-label",
     state.isListening ? "Stop speech to text" : "Start speech to text",
   );
+  if (textField) {
+    textField.placeholder = state.isListening ? "Speaking..." : "Type your answer here...";
+  }
 }
 
 function startSpeechToText() {
@@ -713,19 +717,18 @@ function renderSectionSummary(section) {
     .map((response) => {
       const question = state.config.questionMap[response.question_id];
       const answer = response.was_skipped ? "Skipped" : response.raw_response || "No answer";
-      return `<li><strong>${question.short_variant || question.prompt_text}</strong>: ${answer}</li>`;
+      return `<li><strong>${question.short_variant || question.prompt_text}</strong><span class="review-answer-text">${escapeHtml(answer)}</span></li>`;
     })
     .join("");
 
   els.screen.innerHTML = `
     <div class="screen-layout">
       <div class="screen-head">
-        <p class="eyebrow">Section Review</p>
-        <h2>${section.title}</h2>
-        <div class="summary-box">
-          <strong>Here is what the prototype captured.</strong>
-          <ul>${items}</ul>
+        <h2>Review This Section</h2>
+        <div class="intro-copy plain-copy">
+          <p>${section.title}</p>
         </div>
+        <ul class="section-review-list">${items}</ul>
       </div>
 
       <div class="footer-actions">
@@ -925,6 +928,10 @@ function toLabel(value) {
 }
 
 function describeOption(questionId, option) {
+  if (["answer_mode_001", "input_mode_001", "prompt_style_001", "read_aloud_001"].includes(questionId)) {
+    return "";
+  }
+
   const descriptions = {
     answer_mode_001: {
       self: "The participant answers directly for themselves.",
@@ -937,14 +944,14 @@ function describeOption(questionId, option) {
       mixed: "Switch between typing and speaking as needed.",
     },
     prompt_style_001: {
-      short_simple: "Shorter prompts with less extra explanation.",
+      short_simple: "Shorter questions with less extra explanation.",
       neutral_clear: "Direct, calm phrasing with minimal tone shaping.",
       warm_supportive: "Softer, more reassuring phrasing.",
-      structured_concise: "Highly organized prompts with a clear format.",
+      structured_concise: "Highly organized questions with a clear format.",
     },
     read_aloud_001: {
       yes: "Questions are read aloud by default.",
-      no: "Prompts stay text only unless changed later.",
+      no: "Questions stay text only unless changed later.",
       maybe_later: "Keep it off for now and revisit later.",
     },
   };
